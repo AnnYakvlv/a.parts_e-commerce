@@ -1,0 +1,756 @@
+/* ========== ШРИФТЫ ========== */
+@font-face {
+    font-family: 'Benzin-Medium';
+    src: url('../Benzin-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Codec Pro';
+    src: url('../CodecPro-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Codec Pro';
+    src: url('../CodecPro-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Codec Pro';
+    src: url('../CodecPro-Light.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* ========== СБРОС И БАЗА ========== */
+img {
+    -webkit-user-drag: none;
+    user-drag: none;
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: auto;  /* оставляем кликабельность */
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+html {
+    font-size: 16px;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Codec Pro', 'Inter', system-ui, sans-serif;
+    background-color: #F4F4F4;
+    color: #211F22;
+    line-height: 1.4;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ========== НАВБАР (верхний) ========== */
+.navbar {
+    padding: 1.5rem 0;
+    background: white;
+    position: relative;
+    z-index: 10;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.logo-placeholder {
+    background-color: #2c3e66;
+    border-radius: 0.75rem;
+    height: 3.5rem;
+    width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.875rem;
+    font-family: 'Codec Pro', sans-serif;
+    padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+    .logo-placeholder {
+        height: 2.5rem;
+        width: 120px;
+        font-size: 0.7rem;
+    }
+    .navbar {
+        padding: 1rem 0;
+    }
+}
+
+/* ========== НАВИГАЦИОННЫЙ ОСТРОВОК (нижний) ========== */
+.bottom-nav-fixed {
+    position: fixed;
+    bottom: 32px;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.bottom-nav {
+    background: white;
+    border-radius: 1rem;
+    height: 72px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    border: 1px solid #f0f0f0;
+    pointer-events: auto;
+    width: 100%;
+    max-width: 600px;
+}
+
+.nav-items-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 5rem;
+    gap: 1.5rem;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    text-decoration: none;
+    color: #211F22;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.nav-item:hover {
+    color: #004AAD;
+}
+
+.nav-item .material-symbols-outlined {
+    font-size: 1.5rem;
+}
+
+.nav-item span:not(.material-symbols-outlined) {
+    font-size: 1rem;
+    font-family: 'Codec Pro', sans-serif;
+    font-weight: 450;
+}
+
+@media (max-width: 768px) {
+    .bottom-nav-fixed {
+        bottom: 0;
+    }
+    .bottom-nav {
+        border-radius: 0;
+        max-width: 100%;
+        border-top: 1px solid #f0f0f0;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+    .nav-items-container {
+        padding: 0 1rem;
+        gap: 0.5rem;
+    }
+    .nav-item .material-symbols-outlined {
+        font-size: 1.25rem;
+    }
+    .nav-item span:not(.material-symbols-outlined) {
+        font-size: 0.625rem;
+    }
+    body {
+        padding-bottom: 72px;
+    }
+}
+
+@media (min-width: 769px) {
+    .bottom-nav-fixed {
+        bottom: 32px;
+    }
+    .bottom-nav {
+        border-radius: 1rem;
+        max-width: 600px;
+        border: 1px solid #f0f0f0;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    }
+    .nav-items-container {
+        padding: 0 2rem;
+        gap: 1rem;
+    }
+    .nav-item span:not(.material-symbols-outlined) {
+        font-size: 0.875rem;
+    }
+}
+
+/* ========== ФУТЕР ========== */
+.footer {
+    background-color: #211F22;
+    color: #adb7c4;
+    padding: 3.5rem 0 8rem 0;
+    font-family: 'Codec Pro', sans-serif;
+    margin-top: 180px;
+}
+
+.footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.footer-left {
+    flex: 1;
+}
+
+.footer-left div {
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: white;
+}
+
+.footer-right {
+    display: flex;
+    gap: 3rem;
+}
+
+@media (max-width: 768px) {
+    .footer .container {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+    .footer-right {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+    }
+}
+
+/* ========== ОБЩИЕ КОМПОНЕНТЫ ========== */
+.section-title {
+    font-family: 'Benzin-Medium', 'Codec Pro', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.8rem;
+    }
+}
+
+.spacer-180 {
+    margin-top: 180px;
+}
+
+@media (max-width: 768px) {
+    .spacer-180 {
+        margin-top: 100px;
+    }
+}
+
+/* ========== ОБЩИЕ СТИЛИ ДЛЯ МОДАЛЬНЫХ ОКОН ========== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 1000;
+    display: none;
+    justify-content: flex-end;
+    overflow: hidden;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-close {
+    position: absolute;
+    left: 115px;
+    top: 80px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    z-index: 10;
+}
+
+.modal-close .material-symbols-outlined {
+    font-size: 2rem;
+    color: #211F22;
+}
+
+.modal-close:hover .material-symbols-outlined {
+    color: #004AAD;
+}
+
+/* Десктопная модалка товара (общая) */
+.product-modal-container {
+    width: 836px;
+    max-width: 100%;
+    height: 100vh;
+    background: #002248;
+    position: relative;
+    overflow-y: auto;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+}
+
+.modal-overlay.active .product-modal-container {
+    transform: translateX(0);
+}
+
+.product-modal-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 835 / 464;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 3rem;
+    color: white;
+}
+
+.image-dots {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.image-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #D9D9D9;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.image-dot.active {
+    background: #211F22;
+}
+
+.stock-badge {
+    position: absolute;
+    left: 115px;
+    bottom: 16px;
+    border: 2px solid #2092EA;
+    border-radius: 8px;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #2092EA;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(4px);
+    white-space: nowrap;
+    z-index: 15;
+}
+
+.product-modal-content {
+    padding: 0 20px;
+}
+
+.product-modal-title {
+    font-family: 'Codec Pro', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-top: 24px;
+    margin-left: 115px;
+    color: #FFFFFF;
+}
+
+.product-modal-model {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #C0C0C0;
+    margin-top: 8px;
+    margin-left: 115px;
+}
+
+.specs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 40px;
+    margin-left: 115px;
+    margin-right: 115px;
+}
+
+.specs-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #FFFFFF;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stars {
+    display: flex;
+    gap: 4px;
+    color: #FFB800;
+}
+
+.rating-value {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #FFFFFF;
+}
+
+.specs-list {
+    margin-top: 24px;
+    margin-left: 115px;
+    margin-right: 115px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.spec-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #C0C0C0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.spec-value {
+    color: #FFFFFF;
+}
+
+.product-modal-actions {
+    position: sticky;
+    bottom: 0;
+    background: #002248;
+    padding: 32px 20px 32px 115px;
+    display: flex;
+    gap: 52px;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    margin-top: 40px;
+}
+
+.favorite-btn {
+    width: 64px;
+    height: 56px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.favorite-btn:hover .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1;
+    color: #E9F055;
+}
+
+.add-to-cart-modal {
+    width: 325px;
+    height: 56px;
+    border-radius: 8px;
+    background: #E9F055;
+    border: none;
+    font-family: 'Codec Code Pro', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #211F22;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.add-to-cart-modal:hover {
+    opacity: 0.85;
+}
+
+.waiting-list-btn {
+    width: 325px;
+    height: 56px;
+    border-radius: 8px;
+    background: #FFFFFF;
+    font-family: 'Codec Pro', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #211F22;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.waiting-list-btn:active {
+    background: #211F22;
+    color: white;
+    border: 2px solid white;
+}
+
+.waiting-list-btn:hover {
+    color: #2092EA;
+    border-color: #2092EA;
+}
+
+/* Мобильная модалка товара */
+@media (max-width: 768px) {
+    .product-modal-container {
+        display: none;
+    }
+    
+    .product-modal-mobile {
+        display: block;
+        width: 100%;
+        max-width: 100vw;
+        background: #002248;
+        position: relative;
+        overflow-y: auto;
+        border-radius: 24px 24px 0 0;
+        height: auto;
+        max-height: 90vh;
+        transform: translateY(100%);
+        transition: transform 0.3s ease-out;
+    }
+    
+    .modal-overlay {
+        align-items: flex-end;
+        justify-content: center;
+    }
+    
+    .modal-overlay.active .product-modal-mobile {
+        transform: translateY(0);
+    }
+    
+    .modal-drag-handle {
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 64px;
+        height: 8px;
+        background: #D9D9D9;
+        border-radius: 8px;
+        z-index: 20;
+        cursor: pointer;
+    }
+    
+    .product-modal-mobile-image {
+        background: white;
+        width: 100%;
+        padding: 40px 24px 20px 24px;
+        border-radius: 24px 24px 0 0;
+    }
+    
+    .product-modal-mobile-image .image-box {
+        width: 100%;
+        max-width: 280px;
+        height: 256px;
+        background: #f1f5f9;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5rem;
+        color: #475569;
+        margin: 0 auto 8px auto;
+    }
+    
+    .product-modal-mobile-image .stock-badge-mobile {
+        border: 2px solid #2092EA;
+        border-radius: 8px;
+        padding: 4px 12px;
+        font-size: 0.7rem;
+        color: #2092EA;
+        background: white;
+        width: fit-content;
+        margin-top: 8px;
+        margin-bottom: 16px;
+    }
+    
+    .product-modal-mobile-image .product-title-mobile {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: #211F22;
+        margin-bottom: 8px;
+    }
+    
+    .product-modal-mobile-image .product-model-mobile {
+        font-size: 0.875rem;
+        color: #525151;
+        margin-bottom: 24px;
+    }
+    
+    .image-dots-mobile {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+    }
+    
+    .image-dot-mobile {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #D9D9D9;
+        cursor: pointer;
+    }
+    
+    .image-dot-mobile.active {
+        background: #211F22;
+    }
+    
+    .product-modal-mobile-content {
+        padding: 24px 24px 32px 24px;
+        background: #002248;
+    }
+    
+    .specs-header-mobile {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .specs-title-mobile {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #FFFFFF;
+    }
+    
+    .stars-mobile {
+        display: flex;
+        gap: 4px;
+        color: #FFB800;
+        font-size: 0.875rem;
+    }
+    
+    .rating-value-mobile {
+        font-size: 0.875rem;
+        color: #FFFFFF;
+    }
+    
+    .specs-list-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+    
+    .spec-item-mobile {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.875rem;
+        color: #C0C0C0;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .product-modal-actions-mobile {
+        display: flex;
+        gap: 16px;
+        margin-top: 8px;
+    }
+    
+    .favorite-btn-mobile {
+        width: 56px;
+        height: 48px;
+        border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.3);
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .add-to-cart-mobile {
+        flex: 1;
+        height: 48px;
+        border-radius: 8px;
+        background: #E9F055;
+        border: none;
+        font-size: 1rem;
+        color: #211F22;
+    }
+    
+    .waiting-list-mobile {
+        flex: 1;
+        height: 48px;
+        border-radius: 8px;
+        background: #FFFFFF;
+        border: none;
+        font-size: 1rem;
+        color: #211F22;
+    }
+    .container {
+        padding: 0 24px;
+    }
+}
+
+@media (min-width: 769px) {
+    .product-modal-mobile {
+        display: none !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .stock-badge { left: 20px; }
+    .product-modal-title { margin-left: 20px; font-size: 1.8rem; }
+    .product-modal-model { margin-left: 20px; }
+    .specs-header { margin-left: 20px; margin-right: 20px; }
+    .specs-list { margin-left: 20px; margin-right: 20px; }
+    .product-modal-actions { padding-left: 20px; gap: 20px; flex-wrap: wrap; }
+    .add-to-cart-modal, .waiting-list-btn { width: 100%; max-width: 325px; }
+    .modal-close { left: 20px; top: 60px; }
+}
