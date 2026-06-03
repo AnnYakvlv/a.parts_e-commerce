@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Личный кабинет | Автозапчасти</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/poisk.css">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="container">
+        <div class="navbar-search">
+            <div class="logo-placeholder">ЛОГО (фото)</div>
+            <div class="search-wrapper">
+                <div class="search-container">
+                    <input type="text" placeholder="Введите название товара" id="navbarSearchInput">
+                    <span class="search-icon">
+                        <span class="material-symbols-outlined">search</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container lk-main">
+    <h1 class="section-title">Личный кабинет</h1>
+
+    <div class="tabs-row">
+        <button class="tab-btn active" data-tab="profile">профиль</button>
+        <button class="tab-btn" data-tab="favorites">избранное</button>
+        <button class="tab-btn" data-tab="orders">заказы</button>
+        <button class="tab-btn" data-tab="garage">гараж</button>
+    </div>
+
+    <!-- Профиль -->
+    <div id="profilePane" class="tab-pane active-pane">
+        <div class="info-card">
+            <div class="info-field">
+                <div class="info-label">Имя:</div>
+                <div class="info-value-row">
+                    <span class="info-value" id="displayNameValue">Александр Петров</span>
+                    <button class="edit-link" id="editNameBtn">изменить</button>
+                </div>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="info-field">
+                <div class="info-label">Телефон:</div>
+                <div class="info-value-row">
+                    <span class="info-value" id="displayPhoneValue">+7 (999) 123-45-67</span>
+                    <button class="edit-link" id="editPhoneBtn">изменить</button>
+                </div>
+            </div>
+        </div>
+        <div class="info-card">
+            <div class="info-field">
+                <div class="info-label">Почта:</div>
+                <div class="info-value-row">
+                    <span id="displayEmailValue" class="info-value email-not-specified">не указана</span>
+                    <button class="edit-link" id="editEmailBtn">изменить</button>
+                </div>
+            </div>
+        </div>
+        <div class="logout-btn-wrapper">
+            <button class="logout-btn" id="logoutBtn">
+                <span class="material-symbols-outlined">logout</span>
+                <span>Выйти</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Избранное -->
+    <div id="favoritesPane" class="tab-pane">
+        <div class="favorites-grid" id="favoritesContainer"></div>
+    </div>
+
+    <!-- Заказы -->
+    <div id="ordersPane" class="tab-pane">
+        <div class="orders-list" id="ordersContainer"></div>
+    </div>
+
+    <!-- Гараж -->
+    <div id="garagePane" class="tab-pane">
+        <div class="garage-list" id="garageContainer"></div>
+    </div>
+</div>
+
+<!-- ========== МОДАЛКИ ========== -->
+<!-- Десктопная модалка статуса заказа -->
+<div id="orderStatusModal" class="modal-overlay">
+    <div class="status-modal-container">
+        <button class="modal-close" id="closeStatusModalBtn"><span class="material-symbols-outlined">close</span></button>
+        <div id="orderStatusContent"></div>
+    </div>
+</div>
+
+<!-- Мобильная модалка статуса заказа -->
+<div id="orderStatusModalMobile" class="modal-overlay">
+    <div class="status-modal-mobile">
+        <div class="modal-drag-handle" id="dragHandleStatus"></div>
+        <div id="orderStatusContentMobile"></div>
+    </div>
+</div>
+
+<!-- Десктопная модалка товара -->
+<div id="productModal" class="modal-overlay">
+    <div class="product-modal-container">
+        <button class="modal-close" id="closeProductModalBtn"><span class="material-symbols-outlined">close</span></button>
+        <div id="productModalContent"></div>
+    </div>
+</div>
+
+<!-- Мобильная модалка товара -->
+<div id="productModalMobile" class="modal-overlay">
+    <div class="product-modal-mobile">
+        <div class="modal-drag-handle" id="dragHandleProduct"></div>
+        <div id="productModalContentMobile"></div>
+    </div>
+</div>
+
+<div class="bottom-nav-fixed">
+    <div class="bottom-nav">
+        <div class="nav-items-container">
+            <a href="catalog.html" class="nav-item" data-nav="catalog"><span class="material-symbols-outlined">density_medium</span><span>каталог</span></a>
+            <a href="lk.html?tab=garage" class="nav-item" data-nav="garage"><span class="material-symbols-outlined">directions_car</span><span>гараж</span></a>
+            <a href="cart.html" class="nav-item" data-nav="cart"><span class="material-symbols-outlined">shopping_cart</span><span>корзина</span></a>
+            <a href="lk.html?tab=favorites" class="nav-item" data-nav="favorites"><span class="material-symbols-outlined">favorite</span><span>избранное</span></a>
+            <a href="lk.html" class="nav-item" data-nav="profile"><span class="material-symbols-outlined">person</span><span>лк</span></a>
+        </div>
+    </div>
+</div>
+<div id="loginModal" class="modal-overlay">
+    <div class="login-modal-container">
+        <div class="modal-drag-handle" id="loginDragHandle"></div>
+        <button class="modal-close desktop-only" id="closeLoginModalBtn">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        
+        
+        <div class="login-modal-title">Вход в аккаунт</div>
+        
+        <div class="login-form">
+            <div class="login-field">
+                <label>Email</label>
+                <input type="email" id="loginEmail" placeholder="example@mail.com">
+            </div>
+            
+            <div class="login-field">
+                <label>Пароль</label>
+                <input type="password" id="loginPassword" placeholder="••••••">
+            </div>
+            
+            <div class="login-error" id="loginError" style="display: none; color: #c00; font-size: 14px; margin-bottom: 16px;"></div>
+            
+            <div class="login-links">
+                <a href="#" id="forgotPasswordLink">Забыли пароль?</a>
+                <a href="#" id="showRegisterLink">Нет аккаунта? Зарегистрироваться</a>
+            </div>
+            
+            <button class="login-btn" id="loginSubmitBtn">Войти</button>
+            
+            <div class="login-agreement">
+                Нажимая кнопку, вы соглашаетесь с <a href="#">Правилами пользования</a> и <a href="#">Политикой конфиденциальности</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно регистрации -->
+<div id="registerModal" class="modal-overlay">
+    <div class="login-modal-container">
+        <div class="modal-drag-handle" id="registerDragHandle"></div>
+        <button class="modal-close desktop-only" id="closeLoginModalBtn">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        
+        <div class="login-modal-title">Регистрация</div>
+        
+        <div class="login-form">
+            <div class="login-field">
+                <label>Имя</label>
+                <input type="text" id="registerName" placeholder="Иван Иванов">
+            </div>
+            
+            <div class="login-field">
+                <label>Email</label>
+                <input type="email" id="registerEmail" placeholder="example@mail.com">
+            </div>
+            
+            <div class="login-field">
+                <label>Телефон</label>
+                <input type="tel" id="registerPhone" placeholder="+7 (999) 123-45-67">
+            </div>
+            
+            <div class="login-field">
+                <label>Пароль</label>
+                <input type="password" id="registerPassword" placeholder="••••••">
+            </div>
+            
+            <div class="login-field">
+                <label>Подтверждение пароля</label>
+                <input type="password" id="registerPasswordConfirm" placeholder="••••••">
+            </div>
+            
+            <div class="login-error" id="registerError" style="display: none; color: #c00; font-size: 14px; margin-bottom: 16px;"></div>
+            
+            <button class="login-btn" id="registerSubmitBtn">Зарегистрироваться</button>
+            
+            <div class="login-links">
+                <a href="#" id="showLoginLink">Уже есть аккаунт? Войти</a>
+            </div>
+            <div class="login-agreement">
+                Нажимая кнопку, вы соглашаетесь с <a href="#">Правилами пользования</a> и <a href="#">Политикой конфиденциальности</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-left">
+            <div>Автозапчасти VIN</div>
+            <p>© 2025 Все права защищены</p>
+        </div>
+        <div class="footer-right">
+            <div>
+                <p>Режим работы: Пн-Пт 9:00–20:00</p>
+                <p>Сб 10:00–16:00</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/favorites.js"></script>
+<script src="js/poisk.js"></script>
+<script>
+    let userData = { fullName: 'Александр Петров', phone: '+7 (999) 123-45-67', email: '' };
+    
+    function updateProfileUI() {
+        document.getElementById('displayNameValue').innerText = userData.fullName;
+        document.getElementById('displayPhoneValue').innerText = userData.phone;
+        const emailSpan = document.getElementById('displayEmailValue');
+        if (userData.email) { emailSpan.innerText = userData.email; emailSpan.classList.remove('email-not-specified'); }
+        else { emailSpan.innerText = 'не указана'; emailSpan.classList.add('email-not-specified'); }
+    }
+    
+    function editField(field) {
+        let newVal = prompt('Введите значение:');
+        if (newVal) userData[field === 'name' ? 'fullName' : field] = newVal;
+        updateProfileUI();
+    }
+    
+    document.getElementById('editNameBtn').onclick = () => editField('name');
+    document.getElementById('editPhoneBtn').onclick = () => editField('phone');
+    document.getElementById('editEmailBtn').onclick = () => editField('email');
+    updateProfileUI();
+    
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        window.location.href = 'главная_изм.html';
+    });
+    
+    // ========== ДАННЫЕ (ОБЪЯВЛЯЕМ ПЕРВЫМИ) ==========
+    // Заказы
+    const ordersData = [
+        { id: "ORD-1042", status: "в пути", statusType: "inprogress", date: "14 апреля 2025", total: "8 430 ₽", items: [{ name: "Тормозные колодки передние", desc: "TRW / для VW Tiguan" }, { name: "Масляный фильтр", desc: "MANN-FILTER W 712/80" }] },
+        { id: "ORD-1035", status: "завершен", statusType: "completed", date: "3 апреля 2025", total: "12 250 ₽", items: [{ name: "Комплект ремня ГРМ", desc: "Gates / для Kia Rio" }, { name: "Свечи зажигания (4 шт)", desc: "NGK Iridium" }] }
+    ];
+    
+    // Гараж
+    const garageCars = [
+        { name: "Volkswagen Tiguan 2.0 TSI", vin: "WVWZZZ5NZ1234567", year: "2019" },
+        { name: "Kia Rio 1.6", vin: "KNFC4U3X7A1234567", year: "2016" }
+    ];
+    
+    // Избранное
+    
+    
+    // ========== ФУНКЦИЯ ЗАКРЫТИЯ МОДАЛОК ==========
+    function closeAllModals() {
+        document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+            modal.classList.remove('active');
+        });
+        document.body.classList.remove('modal-open');
+    }
+    
+    // ========== МОДАЛКА СТАТУСА ЗАКАЗА ==========
+    function openOrderStatus(orderId) {
+        const isMobile = window.innerWidth <= 768;
+        const content = `
+            <div class="status-modal-title">Заказ ${orderId}</div>
+            <div class="status-timeline">
+                <div class="timeline-node"><div class="node-left"><div class="node-circle active"></div><div class="node-line"></div></div><div class="node-right"><div class="node-title">В сборке</div><div class="node-desc">Заказ собирают на складе</div></div></div>
+                <div class="timeline-node"><div class="node-left"><div class="node-circle ${orderId === 'ORD-1042' ? 'active' : ''}"></div><div class="node-line"></div></div><div class="node-right"><div class="node-title">В пути</div><div class="node-desc">На данном этапе происходит транспортировка</div></div></div>
+                <div class="timeline-node"><div class="node-left"><div class="node-circle"></div></div><div class="node-right"><div class="node-title">Доставлено</div><div class="node-desc">Заказ доставлен и ожидает в пункте выдачи</div></div></div>
+            </div>
+            <div class="delivery-address-block"><div class="address-title">Адрес доставки</div><div class="address-text">ПВЗ, г. Санкт-Петербург, Большая Морская ул., 18</div></div>
+        `;
+        
+        if (isMobile) {
+            document.getElementById('orderStatusContentMobile').innerHTML = content;
+            document.getElementById('orderStatusModalMobile').classList.add('active');
+        } else {
+            document.getElementById('orderStatusContent').innerHTML = content;
+            document.getElementById('orderStatusModal').classList.add('active');
+        }
+        document.body.classList.add('modal-open');
+    }
+    
+    // Обработчики закрытия модалок статуса
+    document.getElementById('closeStatusModalBtn')?.addEventListener('click', closeAllModals);
+    document.getElementById('orderStatusModal')?.addEventListener('click', (e) => { if(e.target === e.currentTarget) closeAllModals(); });
+    document.getElementById('dragHandleStatus')?.addEventListener('click', closeAllModals);
+    document.getElementById('orderStatusModalMobile')?.addEventListener('click', (e) => { if(e.target === e.currentTarget) closeAllModals(); });
+    
+    // ========== ОТРИСОВКА ЗАКАЗОВ ==========
+    function renderOrders() {
+        const container = document.getElementById('ordersContainer');
+        if (!container) return;
+        container.innerHTML = ordersData.map(order => `
+            <div class="order-item-card">
+                <div class="order-header" data-id="${order.id}">
+                    <span class="order-status-badge ${order.statusType === 'inprogress' ? 'status-inprogress' : 'status-completed'}">${order.status}</span>
+                    <span class="order-title">Заказ ${order.id}</span>
+                    <span class="order-arrow"><span class="material-symbols-outlined">arrow_forward_ios</span></span>
+                </div>
+                <div class="order-details">
+                    <div class="order-details-inner">
+                        <div class="order-content-wrap">
+                            <div class="order-items">
+                                ${order.items.map(item => `
+                                    <div class="order-item-row">
+                                        <div class="item-image">📷</div>
+                                        <div class="item-info"><div class="item-name">${item.name}</div><div class="item-desc">${item.desc}</div></div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="order-footer">
+                                <div class="order-left-info"><div class="order-total-price">${order.total}</div></div>
+                                <div class="order-right-info"><div class="order-date">${order.date}</div><button class="order-detail-link" data-id="${order.id}">Подробнее</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        document.querySelectorAll('.order-header').forEach(header => {
+            header.addEventListener('click', function(e) { 
+                if(e.target.classList.contains('order-detail-link')) return; 
+                this.nextElementSibling.classList.toggle('open'); 
+                this.querySelector('.order-arrow').classList.toggle('rotated'); 
+            });
+        });
+        document.querySelectorAll('.order-detail-link').forEach(btn => btn.addEventListener('click', (e) => { 
+            e.stopPropagation(); 
+            openOrderStatus(btn.dataset.id); 
+        }));
+    }
+    
+    // ========== ОТРИСОВКА ГАРАЖА ==========
+    function renderGarage() {
+        const container = document.getElementById('garageContainer');
+        if (!container) return;
+        container.innerHTML = garageCars.map(car => `
+            <div class="garage-item-card">
+                <div class="garage-field">
+                    <div class="garage-label">Автомобиль:</div>
+                    <div class="garage-value-row"><div class="garage-value">${car.name}<br><small>VIN: ${car.vin} | ${car.year} г.</small></div></div>
+                </div>
+            </div>
+        `).join('');
+        const addBtn = document.createElement('div'); 
+        addBtn.className = 'garage-item-card'; 
+        addBtn.style.display = 'flex'; 
+        addBtn.style.justifyContent = 'center';
+        addBtn.innerHTML = `<button class="add-car-btn"><span class="material-symbols-outlined">add</span> Добавить автомобиль</button>`;
+        addBtn.querySelector('button').onclick = () => alert('Форма добавления авто (демо)');
+        container.appendChild(addBtn);
+    }
+    
+    // ========== МОДАЛКИ ТОВАРА ==========
+    // Мобильная модалка товара
+    function openProductModalMobile(product) {
+        const fullStars = Math.floor(product.rating || 5)
+        const stars = '★'.repeat(fullStars) + '☆'.repeat(5-fullStars)
+        const stockStatus = product.in_stock ? "в наличии" : "под заказ"
+        
+        // Получаем URL главного изображения
+        const mainImage = product.images?.find(img => img.is_main)
+        const imageUrl = mainImage ? api.getImageUrl('product', mainImage.image_url) : null
+        
+        // Формируем характеристики
+        const specsHtml = (product.specs || []).map(spec => `
+            <div class="spec-item-mobile">
+                <div class="spec-name-mobile">${api.escapeHtml(spec.spec_name)}</div>
+                <div class="spec-value-mobile">${api.escapeHtml(spec.spec_value)}</div>
+            </div>
+        `).join('')
+        
+        document.getElementById('productModalContentMobile').innerHTML = `
+            <div class="product-modal-mobile-image">
+                <div class="image-box">
+                    ${imageUrl ? `<img src="${imageUrl}" style="width:70%;height:70%;object-fit:contain;">` : 'деталь'}
+                </div>
+                <div class="stock-badge-mobile">${stockStatus}</div>
+                <div class="product-title-mobile">${api.escapeHtml(product.name)}</div>
+                <div class="product-model-mobile">${api.escapeHtml(product.sku || '')}</div>
+                <div class="image-dots-mobile">
+                    <div class="image-dot-mobile active"></div>
+                    <div class="image-dot-mobile"></div>
+                    <div class="image-dot-mobile"></div>
+                </div>
+            </div>
+            <div class="product-modal-mobile-content">
+                <div class="specs-header-mobile">
+                    <div class="specs-title-mobile">Характеристики</div>
+                    <div class="product-rating-mobile">
+                        <div class="stars-mobile">${stars}</div>
+                        <div class="rating-value-mobile">${product.rating || 5}</div>
+                    </div>
+                </div>
+                <div class="specs-list-mobile">${specsHtml || '<div class="spec-item-mobile">Нет характеристик</div>'}</div>
+                <div class="product-modal-actions-mobile">
+                    <button class="favorite-btn-mobile" data-id="${product.id}">
+                        <span class="material-symbols-outlined">favorite_border</span>
+                    </button>
+                    <button class="add-to-cart-mobile" data-id="${product.id}" data-price="${product.price}">
+                        Добавить в корзину
+                    </button>
+                </div>
+            </div>
+        `
+        
+        document.getElementById('productModalMobile').classList.add('active')
+        document.body.classList.add('modal-open')
+        
+        setTimeout(() => {
+            // Кнопка добавления в корзину
+            const addToCartBtn = document.querySelector('.add-to-cart-mobile')
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', async (e) => {
+                    e.stopPropagation()
+                    await api.addToCart(product.id, 1, product.price)
+                    closeProductModalMobile()
+                    alert('Товар добавлен в корзину')
+                })
+            }
+            
+            // Кнопка избранного
+            const favoriteBtn = document.querySelector('.favorite-btn-mobile')
+            if (favoriteBtn) {
+                favoriteBtn.addEventListener('click', async (e) => {
+                    e.stopPropagation()
+                    const favorites = await api.getFavorites()
+                    if (favorites.includes(product.id)) {
+                        await api.removeFromFavorite(product.id)
+                        alert('Удалено из избранного')
+                    } else {
+                        await api.addToFavorite(product.id)
+                        alert('Добавлено в избранное')
+                    }
+                })
+            }
+        }, 50)
+    }
+    
+    // Десктопная модалка товара
+    function openProductModalDesktop(product) {
+        const fullStars = Math.floor(product.rating || 5)
+        const stars = '★'.repeat(fullStars) + '☆'.repeat(5-fullStars)
+        const stockStatus = product.in_stock ? "в наличии" : "под заказ"
+        
+        // Получаем URL главного изображения
+        const mainImage = product.images?.find(img => img.is_main)
+        const imageUrl = mainImage ? api.getImageUrl('product', mainImage.image_url) : null
+        
+        // Формируем характеристики
+        const specsHtml = (product.specs || []).map(spec => `
+            <div class="spec-item">
+                <div class="spec-name">${api.escapeHtml(spec.spec_name)}</div>
+                <div class="spec-value">${api.escapeHtml(spec.spec_value)}</div>
+            </div>
+        `).join('')
+        
+        document.getElementById('productModalContent').innerHTML = `
+            <div class="product-modal-image">
+                ${imageUrl ? `<img src="${imageUrl}" style="width:50%;height:50%;object-fit:contain;">` : 'Деталь'}
+                <div class="stock-badge">${stockStatus}</div>
+                <div class="image-dots">
+                    <div class="image-dot active"></div>
+                    <div class="image-dot"></div>
+                    <div class="image-dot"></div>
+                </div>
+            </div>
+            <div class="product-modal-content">
+                <div class="product-modal-title">${api.escapeHtml(product.name)}</div>
+                <div class="product-modal-model">${api.escapeHtml(product.sku || '')}</div>
+                <div class="specs-header">
+                    <div class="specs-title">Характеристики</div>
+                    <div class="product-rating">
+                        <div class="stars">${stars}</div>
+                        <div class="rating-value">${product.rating || 5}</div>
+                    </div>
+                </div>
+                <div class="specs-list">${specsHtml || '<div class="spec-item">Нет характеристик</div>'}</div>
+                <div class="product-modal-actions">
+                    <button class="favorite-btn" data-id="${product.id}">
+                        <span class="material-symbols-outlined">favorite_border</span>
+                    </button>
+                    <button class="add-to-cart-modal" data-id="${product.id}" data-price="${product.price}">
+                        Добавить в корзину
+                    </button>
+                </div>
+            </div>
+        `
+        
+        document.getElementById('productModal').classList.add('active')
+        document.body.classList.add('modal-open')
+        
+        setTimeout(() => {
+            // Кнопка добавления в корзину
+            const addToCartBtn = document.querySelector('.add-to-cart-modal')
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', async (e) => {
+                    e.stopPropagation()
+                    await api.addToCart(product.id, 1, product.price)
+                    closeProductModalDesktop()
+                    alert('Товар добавлен в корзину')
+                })
+            }
+            
+            // Кнопка избранного
+            const favoriteBtn = document.querySelector('.favorite-btn')
+            if (favoriteBtn) {
+                favoriteBtn.addEventListener('click', async (e) => {
+                    e.stopPropagation()
+                    const favorites = await api.getFavorites()
+                    if (favorites.includes(product.id)) {
+                        await api.removeFromFavorite(product.id)
+                        alert('Удалено из избранного')
+                    } else {
+                        await api.addToFavorite(product.id)
+                        alert('Добавлено в избранное')
+                    }
+                })
+            }
+        }, 50)
+    }
+    
+    function openProductModal(product) {
+        if (window.innerWidth <= 768) {
+            openProductModalMobile(product);
+        } else {
+            openProductModalDesktop(product);
+        }
+    }
+    
+    // Обработчики закрытия модалок товара
+    document.getElementById('closeProductModalBtn')?.addEventListener('click', closeAllModals);
+    document.getElementById('productModal')?.addEventListener('click', (e) => { if(e.target === e.currentTarget) closeAllModals(); });
+    document.getElementById('dragHandleProduct')?.addEventListener('click', closeAllModals);
+    document.getElementById('productModalMobile')?.addEventListener('click', (e) => { if(e.target === e.currentTarget) closeAllModals(); });
+    
+    // ========== ОТРИСОВКА ИЗБРАННОГО ==========
+    
+    
+    // ========== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК ==========
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const profilePane = document.getElementById('profilePane');
+    const favoritesPane = document.getElementById('favoritesPane');
+    const ordersPane = document.getElementById('ordersPane');
+    const garagePane = document.getElementById('garagePane');
+    
+    function activateTab(tabId) {
+        profilePane.classList.remove('active-pane');
+        favoritesPane.classList.remove('active-pane');
+        ordersPane.classList.remove('active-pane');
+        garagePane.classList.remove('active-pane');
+        
+        if (tabId === 'profile') profilePane.classList.add('active-pane');
+        if (tabId === 'favorites') { 
+            favoritesPane.classList.add('active-pane'); 
+            renderFavorites(); 
+        }
+        if (tabId === 'orders') { 
+            ordersPane.classList.add('active-pane'); 
+            renderOrders(); 
+        }
+        if (tabId === 'garage') { 
+            garagePane.classList.add('active-pane'); 
+            renderGarage(); 
+        }
+        
+        tabBtns.forEach(btn => btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId));
+        
+        const url = new URL(window.location);
+        url.searchParams.set('tab', tabId);
+        window.history.pushState({}, '', url);
+    }
+    
+    tabBtns.forEach(btn => btn.addEventListener('click', () => activateTab(btn.getAttribute('data-tab'))));
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialTab = urlParams.get('tab');
+    if (initialTab && ['profile', 'favorites', 'orders', 'garage'].includes(initialTab)) {
+        activateTab(initialTab);
+    }
+    
+    // Закрываем модалки при изменении размера окна
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            if (document.getElementById('productModalMobile')?.classList.contains('active')) {
+                closeAllModals();
+            }
+            if (document.getElementById('orderStatusModalMobile')?.classList.contains('active')) {
+                closeAllModals();
+            }
+        } else {
+            if (document.getElementById('productModal')?.classList.contains('active')) {
+                closeAllModals();
+            }
+            if (document.getElementById('orderStatusModal')?.classList.contains('active')) {
+                closeAllModals();
+            }
+        }
+    });
+    
+    // Инициализация активной вкладки по умолчанию
+    if (!initialTab) {
+        renderFavorites();
+        renderOrders();
+        renderGarage();
+    }
+</script>
+<script>
+    // ========== АУТЕНТИФИКАЦИЯ ==========
+    let currentUser = null
+    
+    // Проверка авторизации
+    async function checkAuth() {
+        const isAuth = await api.auth.isAuthenticated()
+        if (isAuth) {
+            currentUser = await api.auth.getProfile()
+            renderAuthUI(true)
+        } else {
+            renderAuthUI(false)
+        }
+    }
+    
+    // Рендер UI в зависимости от авторизации
+    function renderAuthUI(isAuthenticated) {
+        const profilePane = document.getElementById('profilePane')
+        const profileTab = document.querySelector('.tab-btn[data-tab="profile"]')
+        const favoritesTab = document.querySelector('.tab-btn[data-tab="favorites"]')
+        const ordersTab = document.querySelector('.tab-btn[data-tab="orders"]')
+        const garageTab = document.querySelector('.tab-btn[data-tab="garage"]')
+        
+        if (!profilePane) return
+        
+        if (isAuthenticated && currentUser) {
+            // Показываем профиль с данными
+            profilePane.innerHTML = `
+                <div class="info-card">
+                    <div class="info-field">
+                        <div class="info-label">Имя:</div>
+                        <div class="info-value-row">
+                            <span class="info-value" id="displayNameValue">${escapeHtml(currentUser.full_name || 'Пользователь')}</span>
+                            <button class="edit-link" id="editNameBtn">изменить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-field">
+                        <div class="info-label">Телефон:</div>
+                        <div class="info-value-row">
+                            <span class="info-value" id="displayPhoneValue">${escapeHtml(currentUser.phone || 'не указан')}</span>
+                            <button class="edit-link" id="editPhoneBtn">изменить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="info-field">
+                        <div class="info-label">Почта:</div>
+                        <div class="info-value-row">
+                            <span class="info-value" id="displayEmailValue">${escapeHtml(currentUser.email || 'не указана')}</span>
+                            <button class="edit-link" id="editEmailBtn">изменить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="logout-btn-wrapper">
+                    <button class="logout-btn" id="logoutBtn">
+                        <span class="material-symbols-outlined">logout</span>
+                        <span>Выйти</span>
+                    </button>
+                </div>
+            `
+            
+            // Переподключаем обработчики кнопок
+            document.getElementById('editNameBtn')?.addEventListener('click', () => editField('full_name'))
+            document.getElementById('editPhoneBtn')?.addEventListener('click', () => editField('phone'))
+            document.getElementById('editEmailBtn')?.addEventListener('click', () => editField('email'))
+            document.getElementById('logoutBtn')?.addEventListener('click', handleLogout)
+            
+            // Включаем вкладки
+            if (profileTab) profileTab.style.display = 'inline-flex'
+            if (favoritesTab) favoritesTab.style.display = 'inline-flex'
+            if (ordersTab) ordersTab.style.display = 'inline-flex'
+            if (garageTab) garageTab.style.display = 'inline-flex'
+            
+        } else {
+            // Показываем кнопку "Войти"
+            profilePane.innerHTML = `
+                <div class="info-card" style="text-align: center; padding: 60px 20px;">
+                    <span class="material-symbols-outlined" style="font-size: 64px; color: #94a3b8; margin-bottom: 16px;">account_circle</span>
+                    <h3 style="margin-bottom: 8px;">Вы не авторизованы</h3>
+                    <p style="margin-bottom: 24px; color: #64748b;">Войдите или зарегистрируйтесь, чтобы получить доступ к личному кабинету</p>
+                    <button class="login-action-btn" id="showLoginFromProfile" style="background: #004AAD; color: white; border: none; padding: 12px 32px; border-radius: 8px; cursor: pointer; font-size: 16px;">Войти</button>
+                </div>
+            `
+            
+            const loginBtn = document.getElementById('showLoginFromProfile')
+            if (loginBtn) {
+                loginBtn.addEventListener('click', () => openLoginModal())
+            }
+            
+            // Скрываем вкладки или отключаем их
+            if (favoritesTab) {
+                favoritesTab.style.display = 'inline-flex'
+                // Показываем сообщение в избранном
+                const favoritesContainer = document.getElementById('favoritesContainer')
+                if (favoritesContainer && document.getElementById('favoritesPane').classList.contains('active-pane')) {
+                    favoritesContainer.innerHTML = '<div style="text-align:center; padding:40px;">Войдите в аккаунт, чтобы видеть избранное</div>'
+                }
+            }
+            if (ordersTab) ordersTab.style.display = 'inline-flex'
+            if (garageTab) garageTab.style.display = 'inline-flex'
+        }
+    }
+    
+    // Открытие модалки входа
+    function openLoginModal() {
+        const modal = document.getElementById('loginModal')
+        if (modal) {
+            modal.classList.add('active')
+            document.body.classList.add('modal-open')
+            document.getElementById('loginError').style.display = 'none'
+            document.getElementById('loginEmail').value = ''
+            document.getElementById('loginPassword').value = ''
+        }
+    }
+    
+    function closeLoginModal() {
+        const modal = document.getElementById('loginModal')
+        if (modal) {
+            modal.classList.remove('active')
+            document.body.classList.remove('modal-open')
+        }
+    }
+    
+    function openRegisterModal() {
+        closeLoginModal()
+        const modal = document.getElementById('registerModal')
+        if (modal) {
+            modal.classList.add('active')
+            document.body.classList.add('modal-open')
+            document.getElementById('registerError').style.display = 'none'
+        }
+    }
+    
+    function closeRegisterModal() {
+        const modal = document.getElementById('registerModal')
+        if (modal) {
+            modal.classList.remove('active')
+            document.body.classList.remove('modal-open')
+        }
+    }
+    
+    // Обработчик входа
+    async function handleLogin() {
+        const email = document.getElementById('loginEmail').value.trim()
+        const password = document.getElementById('loginPassword').value
+        const errorDiv = document.getElementById('loginError')
+        
+        if (!email || !password) {
+            errorDiv.innerText = 'Заполните все поля'
+            errorDiv.style.display = 'block'
+            return
+        }
+        
+        try {
+            await api.auth.signIn(email, password)
+            //alert('Вход выполнен успешно!')
+            closeLoginModal()
+            location.reload()
+        } catch (error) {
+            errorDiv.innerText = error.message || 'Ошибка входа. Проверьте email и пароль'
+            errorDiv.style.display = 'block'
+        }
+    }
+    
+    // Обработчик регистрации
+    async function handleRegister() {
+        const name = document.getElementById('registerName').value.trim()
+        const email = document.getElementById('registerEmail').value.trim()
+        const phone = document.getElementById('registerPhone').value.trim()
+        const password = document.getElementById('registerPassword').value
+        const passwordConfirm = document.getElementById('registerPasswordConfirm').value
+        const errorDiv = document.getElementById('registerError')
+        
+        if (!name || !email || !phone || !password) {
+            errorDiv.innerText = 'Заполните все поля'
+            errorDiv.style.display = 'block'
+            return
+        }
+        
+        if (password !== passwordConfirm) {
+            errorDiv.innerText = 'Пароли не совпадают'
+            errorDiv.style.display = 'block'
+            return
+        }
+        
+        if (password.length < 6) {
+            errorDiv.innerText = 'Пароль должен быть не менее 6 символов'
+            errorDiv.style.display = 'block'
+            return
+        }
+        
+        try {
+            await api.auth.signUp(email, password, { full_name: name, phone: phone })
+            alert('Регистрация успешна! Теперь вы можете войти')
+            closeRegisterModal()
+            openLoginModal()
+        } catch (error) {
+            errorDiv.innerText = error.message || 'Ошибка регистрации'
+            errorDiv.style.display = 'block'
+        }
+    }
+    
+    // Выход из аккаунта
+    async function handleLogout() {
+        if (confirm('Вы уверены, что хотите выйти?')) {
+            try {
+                await api.auth.signOut()
+                //alert('Вы вышли из аккаунта')
+                
+                // Очищаем локальные данные
+                localStorage.removeItem('cart')
+                localStorage.removeItem('guest_user_id')
+                
+                // Обновляем текущего пользователя
+                currentUser = null
+                
+                // Перерисовываем UI без перезагрузки страницы
+                renderAuthUI(false)
+                
+                // Очищаем корзину на странице, если она открыта
+                if (typeof renderCart === 'function') {
+                    renderCart()
+                }
+                
+                // Очищаем избранное
+                const favoritesContainer = document.getElementById('favoritesContainer')
+                if (favoritesContainer) {
+                    favoritesContainer.innerHTML = '<div style="text-align:center; padding:40px;">Войдите в аккаунт, чтобы видеть избранное</div>'
+                }
+                
+            } catch (error) {
+                console.error('Ошибка выхода:', error)
+                alert('Ошибка при выходе. Попробуйте обновить страницу.')
+            }
+        }
+    }
+    
+    // Кнопка выхода
+    const logoutBtn = document.getElementById('logoutBtn')
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', handleLogout)
+    }
+    function escapeHtml(str) {
+        if (!str) return ''
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;'
+            if (m === '<') return '&lt;'
+            if (m === '>') return '&gt;'
+            return m
+        })
+    }
+    // Инициализация модалок
+    function initAuthModals() {
+        // Закрытие модалок
+        const closeLoginBtn = document.getElementById('closeLoginModalBtn')
+        const closeRegisterBtn = document.getElementById('closeRegisterModalBtn')
+        const loginDragHandle = document.getElementById('loginDragHandle')
+        const registerDragHandle = document.getElementById('registerDragHandle')
+        const loginModal = document.getElementById('loginModal')
+        const registerModal = document.getElementById('registerModal')
+        
+        if (closeLoginBtn) closeLoginBtn.addEventListener('click', closeLoginModal)
+        if (closeRegisterBtn) closeRegisterBtn.addEventListener('click', closeRegisterModal)
+        if (loginDragHandle) loginDragHandle.addEventListener('click', closeLoginModal)
+        if (registerDragHandle) registerDragHandle.addEventListener('click', closeRegisterModal)
+        
+        if (loginModal) {
+            loginModal.addEventListener('click', (e) => {
+                if (e.target === loginModal) closeLoginModal()
+            })
+        }
+        
+        if (registerModal) {
+            registerModal.addEventListener('click', (e) => {
+                if (e.target === registerModal) closeRegisterModal()
+            })
+        }
+        
+        // Кнопки входа/регистрации
+        const loginSubmit = document.getElementById('loginSubmitBtn')
+        const registerSubmit = document.getElementById('registerSubmitBtn')
+        const showRegisterLink = document.getElementById('showRegisterLink')
+        const showLoginLink = document.getElementById('showLoginLink')
+        const forgotPasswordLink = document.getElementById('forgotPasswordLink')
+        
+        if (loginSubmit) loginSubmit.addEventListener('click', handleLogin)
+        if (registerSubmit) registerSubmit.addEventListener('click', handleRegister)
+        if (showRegisterLink) showRegisterLink.addEventListener('click', (e) => {
+            e.preventDefault()
+            openRegisterModal()
+        })
+        if (showLoginLink) showLoginLink.addEventListener('click', (e) => {
+            e.preventDefault()
+            closeRegisterModal()
+            openLoginModal()
+        })
+        
+        // Тестовый аккаунт для быстрого входа
+        if (forgotPasswordLink) {
+            forgotPasswordLink.addEventListener('click', (e) => {
+                e.preventDefault()
+                alert('Для тестового входа используйте:\nEmail: demo@example.com\nПароль: demo123456')
+            })
+        }
+        
+        // Enter для отправки формы
+        const loginPassword = document.getElementById('loginPassword')
+        const registerPassword = document.getElementById('registerPassword')
+        
+        if (loginPassword) {
+            loginPassword.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleLogin()
+            })
+        }
+        
+        if (registerPassword) {
+            registerPassword.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleRegister()
+            })
+        }
+    }
+    
+    // Запускаем проверку авторизации и инициализацию
+    checkAuth()
+    initAuthModals()
+    
+    // Показываем модалку входа при клике на "Войти" из нижней навигации (если не авторизован)
+    const profileNav = document.querySelector('.nav-item[data-nav="profile"]')
+    if (profileNav) {
+        profileNav.addEventListener('click', async (e) => {
+            e.preventDefault()
+            const isAuth = await api.auth.isAuthenticated()
+            if (!isAuth) {
+                openLoginModal()
+            } else {
+                window.location.href = 'lk.html'
+            }
+        })
+    }
+</script>
+</body>
+</html>

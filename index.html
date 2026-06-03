@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>a.parts - автозапчасти</title>
+    
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/home.css">
+    
+</head>
+<body class="home-page">
+
+<div class="navbar">
+    <div class="container">
+        <div class="logo-placeholder"></div>
+    </div>
+</div>
+
+<div class="fullwidth-banner"></div>
+
+<div class="search-overlay-wrapper">
+    <div class="search-card">
+        <div class="toggle-fullwidth">
+            <div class="toggle-wrapper">
+                <div class="toggle-container">
+                    <button class="toggle-btn active" id="simpleSearchBtn">простой поиск</button>
+                    <button class="toggle-btn" id="vinSearchBtn">поиск по VIN</button>
+                </div>
+            </div>
+        </div>
+        <div class="search-content">
+            <div class="search-inner">
+                <div class="search-input-wrapper">
+                    <input type="text" class="search-input" id="searchField" placeholder="Название детали или код VIN...">
+                    <button class="search-button" id="searchActionBtn">Найти</button>
+                </div>
+                <div class="vin-example" id="exampleText">Пример VIN-запроса: WF0EXXGCDE7580518</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container spacer-180">
+    <h1 class="section-title">Каталог запчастей</h1>
+    <div class="catalog-grid">
+        <div class="catalog-card" data-category="engine"><p>Двигатель</p></div>
+        <div class="catalog-card" data-category="electrics"><p>Электрика</p></div>
+        <div class="catalog-card" data-category="chassis"><p>Ходовая часть</p></div>
+        <div class="catalog-card" data-category="fasteners"><p>Крепеж</p></div>
+        <div class="catalog-card" data-category="tools"><p>Инструменты</p></div>
+    </div>
+</div>
+
+<div class="container spacer-180">
+    <h1 class="section-title">Блог</h1>
+    <div class="blog-grid">
+        <div class="blog-card">
+            <div class="blog-image-section">
+                <div class="blog-img-placeholder"></div>
+            </div>
+            <div class="blog-content">
+                <h3>Как выбрать моторное масло</h3>
+                <p>Советы экспертов и разбор популярных брендов. Полное руководство для автолюбителей.</p>
+            </div>
+        </div>
+        <div class="blog-card">
+            <div class="blog-image-section">
+                <div class="blog-img-placeholder"></div>
+            </div>
+            <div class="blog-content">
+                <h3>Расшифровка VIN кода</h3>
+                <p>Узнайте страну, модель и комплектацию авто за 2 минуты. Полезная инструкция с примерами.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top: 180px; position: relative;">
+    <div class="container">
+        <h1 class="section-title">Партнеры</h1>
+    </div>
+    <div class="marquee-fullwidth">
+        <div class="marquee">
+            <span>BOSCH</span> <span>DENSO</span> <span>ZF Friedrichshafen</span> <span>Magneti Marelli</span>
+            <span>Valeo</span> <span>Hella</span> <span>Continental</span> <span>Brembo</span>
+            <span>BOSCH</span> <span>DENSO</span> <span>ZF</span> <span>Marelli</span>
+            <span>Valeo</span> <span>Hella</span> <span>Continental</span> <span>Brembo</span>
+        </div>
+    </div>
+</div>
+
+<div class="about-full">
+    <div class="about-content">
+        <div class="about-two-columns">
+            <div class="about-left">
+                <h1 class="section-title">О нас</h1>
+                <div class="about-text">
+                    <p style="margin-bottom: 1.25rem;">Мы — команда профессионалов, обеспечивающая доступ к оригинальным запчастям и аналогам премиум-качества. Более 8 лет на рынке, тысячи довольных клиентов и мгновенная проверка по VIN.</p>
+                    <p>Работаем с прямыми поставками из Европы и Азии. Даём гарантию на все позиции. Быстрая доставка по всей России.</p>
+                </div>
+            </div>
+            <div class="about-right">
+                <div class="plates-grid-inner">
+                    <div class="plates-top">
+                        <div class="plate-delivery">Доставка</div>
+                        <div class="plate-contacts">Контакты</div>
+                    </div>
+                    <div class="plate-clients">Клиентам</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bottom-nav-fixed">
+    <div class="bottom-nav">
+        <div class="nav-items-container">
+            <a href="catalog.html" class="nav-item" data-nav="catalog"><span class="material-symbols-outlined">density_medium</span><span>каталог</span></a>
+            <a href="lk.html?tab=garage" class="nav-item" data-nav="garage"><span class="material-symbols-outlined">directions_car</span><span>гараж</span></a>
+            <a href="cart.html" class="nav-item" data-nav="cart"><span class="material-symbols-outlined">shopping_cart</span><span>корзина</span></a>
+            <a href="lk.html?tab=favorites" class="nav-item" data-nav="favorites"><span class="material-symbols-outlined">favorite</span><span>избранное</span></a>
+            <a href="lk.html" class="nav-item" data-nav="profile"><span class="material-symbols-outlined">person</span><span>лк</span></a>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-left">
+            <div>Автозапчасти VIN</div>
+            <p>© 2025 Все права защищены</p>
+        </div>
+        <div class="footer-right">
+            <div>
+                <p>Режим работы: Пн-Пт 9:00–20:00</p>
+                <p>Сб 10:00–16:00</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/home.js"></script>
+<script src="js/poisk.js"></script>
+
+
+<script>
+    const simpleBtn = document.getElementById('simpleSearchBtn');
+    const vinBtn = document.getElementById('vinSearchBtn');
+    const searchField = document.getElementById('searchField');
+    const exampleSpan = document.getElementById('exampleText');
+    const searchBtn = document.getElementById('searchActionBtn');
+
+    function setActive(mode) {
+        if(mode === 'simple') {
+            simpleBtn.classList.add('active');
+            vinBtn.classList.remove('active');
+            searchField.placeholder = "Введите название детали, артикул...";
+            exampleSpan.innerText = "Пример: тормозные колодки, масляный фильтр, ремень ГРМ";
+        } else {
+            vinBtn.classList.add('active');
+            simpleBtn.classList.remove('active');
+            searchField.placeholder = "Введите 17 символов VIN-кода";
+            exampleSpan.innerText = "Пример VIN-запроса: WF0EXXGCDE7580518";
+        }
+    }
+
+    simpleBtn.addEventListener('click', () => setActive('simple'));
+    vinBtn.addEventListener('click', () => setActive('vin'));
+
+    function performSearch() {
+        const query = searchField.value.trim();
+        if(query) alert(`🔎 Поиск: "${query}"\n(демонстрационный режим)`);
+        else alert('Введите данные для поиска');
+    }
+
+    searchBtn.addEventListener('click', performSearch);
+    searchField.addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') performSearch();
+    });
+    
+    // Переход в каталог по клику на карточку
+    document.querySelectorAll('.catalog-card').forEach(card => {
+        card.addEventListener('click', () => {
+            window.location.href = 'catalog.html';
+        });
+    });
+</script>
+</body>
+</html>
