@@ -1,14 +1,14 @@
-// js/supabase-config.js
-console.log('🔵 Загрузка supabase-config.js...')
+
+console.log('Загрузка supabase-config.js...')
 
 const SUPABASE_URL = 'https://dfnlekkrosjimworqejb.supabase.co'
 const SUPABASE_ANON_KEY = 'sb_publishable_5V_kUtJwvtSm8BvUS51XZg_OWQNNoSH'
 
-// Создаём клиент
+
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 console.log('Supabase клиент создан')
 
-// ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
+
 function getImageUrl(bucket, path) {
     if (!path) return null
     let cleanPath = path
@@ -31,21 +31,20 @@ function getGuestUserId() {
     return guestId
 }
 
-// ========== АУТЕНТИФИКАЦИЯ ==========
+
 const auth = {
-    // Текущий пользователь
     async getCurrentUser() {
         const { data } = await supabaseClient.auth.getUser()
         return data.user
     },
     
-    // Проверка, авторизован ли пользователь
+
     async isAuthenticated() {
         const { data } = await supabaseClient.auth.getSession()
         return !!data.session
     },
     
-    // Вход
+
     async signIn(email, password) {
         const { data, error } = await supabaseClient.auth.signInWithPassword({
             email: email,
@@ -55,7 +54,7 @@ const auth = {
         return data
     },
     
-    // Регистрация
+
     async signUp(email, password, userData = {}) {
         const { data, error } = await supabaseClient.auth.signUp({
             email: email,
@@ -71,7 +70,7 @@ const auth = {
         return data
     },
     
-    // Выход
+
     async signOut() {
         const { error } = await supabaseClient.auth.signOut()
         if (error) throw error
@@ -79,7 +78,7 @@ const auth = {
         localStorage.removeItem('guest_user_id')
     },
     
-    // Получение профиля пользователя
+
     async getProfile() {
         const { data: { user } } = await supabaseClient.auth.getUser()
         if (!user) return null
@@ -91,7 +90,6 @@ const auth = {
             .single()
         
         if (error) {
-            // Если профиля нет, создаём базовый
             if (error.code === 'PGRST116') {
                 const { data: newProfile, error: insertError } = await supabaseClient
                     .from('profiles')
@@ -105,7 +103,7 @@ const auth = {
         return { ...user, ...data }
     },
     
-    // Обновление профиля
+
     async updateProfile(updates) {
         const { data: { user } } = await supabaseClient.auth.getUser()
         if (!user) throw new Error('Не авторизован')
@@ -119,7 +117,7 @@ const auth = {
     }
 }
 
-// ========== КОРЗИНА (с поддержкой авторизации) ==========
+
 async function getCart() {
     const isAuth = await auth.isAuthenticated()
     let userId
@@ -219,7 +217,7 @@ async function clearCart() {
         .eq('user_id', userId)
 }
 
-// ========== ИЗБРАННОЕ (только для авторизованных) ==========
+
 async function getFavorites() {
     const isAuth = await auth.isAuthenticated()
     if (!isAuth) return []
@@ -260,9 +258,8 @@ async function removeFromFavorite(productId) {
     if (error) throw error
 }
 
-// ========== ОСНОВНОЙ API ==========
+
 const api = {
-    // Категории
     async getCategories() {
         const { data, error } = await supabaseClient
             .from('categories')
@@ -292,7 +289,7 @@ const api = {
         return data
     },
     
-    // Товары
+
     async getProducts(filters = {}) {
         let query = supabaseClient
             .from('products')
@@ -366,7 +363,7 @@ const api = {
         return data
     },
     
-    // Производители
+
     async getManufacturers() {
         const { data, error } = await supabaseClient
             .from('manufacturers')
@@ -376,7 +373,7 @@ const api = {
         return data
     },
     
-    // Типы товаров
+
     async getProductTypes() {
         const { data, error } = await supabaseClient
             .from('products')
@@ -387,13 +384,13 @@ const api = {
         return types.sort()
     },
     
-    // Корзина (обновлённые методы)
+
     getCart,
     addToCart,
     updateCartQuantity,
     clearCart,
     
-    // Поиск по VIN
+
     async searchByVin(vinCode) {
         const { data, error } = await supabaseClient
             .from('vin_compatibility')
@@ -412,7 +409,7 @@ const api = {
         }))
     },
     
-    // Блог
+
     async getBlogPosts() {
         const { data, error } = await supabaseClient
             .from('blog_posts')
@@ -424,7 +421,7 @@ const api = {
         return data || []
     },
     
-    // Характеристики
+
     async getProductSpecs(productId) {
         const { data, error } = await supabaseClient
             .from('product_specs')
@@ -435,15 +432,15 @@ const api = {
         return data || []
     },
     
-    // Избранное (обновлённые методы)
+
     getFavorites,
     addToFavorite,
     removeFromFavorite,
     
-    // Аутентификация
+
     auth,
     
-    // Утилиты
+
     getImageUrl,
     escapeHtml(str) {
         if (!str) return ''
@@ -456,6 +453,5 @@ const api = {
     }
 }
 
-// Делаем api глобальным
 window.api = api
-console.log('🔵 API готов, аутентификация подключена')
+console.log('API готов, аутентификация подключена')
