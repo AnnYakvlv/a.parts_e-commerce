@@ -1,0 +1,1013 @@
+/* ========== СТИЛИ ДЛЯ ЛИЧНОГО КАБИНЕТА ========== */
+body.modal-open {
+    overflow: hidden !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+.lk-main {
+    margin-top: 80px;
+    margin-bottom: 0;
+}
+
+/* ========== ВКЛАДКИ (десктопная версия по умолчанию) ========== */
+.tabs-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    background: transparent;
+    border: 2px solid #211F22;
+    font-family: 'Codec Pro', sans-serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    padding: 0.75rem 2rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #211F22;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tab-btn.active {
+    background: #002248;
+    border-color: #002248;
+    color: white;
+}
+
+.tab-btn:hover:not(.active) {
+    background: #eef4ff;
+}
+
+/* ========== МОБИЛЬНАЯ ВЕРСИЯ ВКЛАДОК ========== */
+@media (max-width: 768px) {
+    .tab-btn {
+        font-size: 14px;
+        padding: 0.5rem 1.5rem;
+        height: 32px;
+    }
+}
+
+@media (max-width: 475px){
+    .tabs-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0;
+    }
+    .tab-btn {
+        font-size: 14px;
+        padding: 0.5rem 0;
+        height: 32px;
+        width: 100%;
+        border-radius: 2rem;
+        white-space: nowrap;
+    }
+}
+
+/* ========== ПАНЕЛИ ========== */
+.tab-pane {
+    display: none;
+    animation: fadeIn 0.25s ease;
+}
+
+.tab-pane.active-pane {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+/* ========== ПРОФИЛЬ ========== */
+.info-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #e9eef3;
+}
+
+.info-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.info-label {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #5b6a7e;
+}
+
+.info-value-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.info-value {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #211F22;
+}
+
+.edit-link {
+    font-size: 0.9rem;
+    color: #004AAD;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: 'Codec Pro', sans-serif;
+}
+
+.edit-link:hover {
+    text-decoration: underline;
+}
+
+.logout-btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    margin-bottom: 180px;
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    font-family: 'Codec Pro', sans-serif;
+    font-size: 1rem;
+    color: #211F22;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logout-btn:hover {
+    color: #004AAD;
+}
+
+/* ========== ЗАКАЗЫ ========== */
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 180px;
+}
+
+.order-item-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #edf2f7;
+    overflow: hidden;
+}
+
+.order-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.order-status-badge {
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 0.25rem 1rem;
+    border-radius: 2rem;
+    background: transparent;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.status-inprogress {
+    border: 1px solid #2092EA;
+    color: #2092EA;
+}
+
+.status-completed {
+    border: 1px solid #38AD02;
+    color: #38AD02;
+}
+
+.order-title {
+    font-family: 'Codec Pro', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #211F22;
+    flex: 1;
+}
+
+.order-arrow {
+    color: #64748b;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.order-arrow.rotated {
+    transform: rotate(90deg);
+}
+
+.order-details {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+}
+
+.order-details.open {
+    grid-template-rows: 1fr;
+}
+
+.order-details-inner {
+    overflow: hidden;
+}
+
+.order-content-wrap {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.order-item-row {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.item-image {
+    width: 120px;
+    height: 120px;
+    background: #e2e8f0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.item-name {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.item-desc {
+    font-size: 1rem;
+    color: #525151;
+}
+
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.order-total-price {
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.order-date {
+    font-size: 0.9rem;
+    color: #525151;
+}
+
+.order-detail-link {
+    font-size: 0.9rem;
+    color: #004AAD;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+/* ========== ГАРАЖ ========== */
+.garage-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 180px;
+}
+
+.garage-item-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    border: 1px solid #e9eef3;
+}
+
+.garage-label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #5b6a7e;
+}
+
+.garage-value {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #211F22;
+}
+
+.garage-value small {
+    font-size: 0.85rem;
+    color: #525151;
+}
+
+.add-car-btn {
+    background: transparent;
+    border: 1px solid #004AAD;
+    border-radius: 2rem;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Codec Pro', sans-serif;
+    font-size: 1rem;
+    color: #004AAD;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+}
+
+/* ========== ИЗБРАННОЕ ========== */
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 180px;
+}
+
+.fav-product-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #edf2f7;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+    height: 100%;
+}
+
+.fav-product-card:hover {
+    transform: translateY(-4px);
+}
+
+.fav-product-image {
+    width: 100%;
+    height: 180px;
+    margin: 0 auto;
+}
+
+.fav-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.fav-product-title {
+    font-family: 'Codec Pro', sans-serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: #211F22;
+    margin-bottom: 8px;
+}
+
+.fav-product-desc {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #525151;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    flex: 1;
+}
+
+.fav-cart-btn {
+    width: 100%;
+    height: 40px;
+    background: #E9F055;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Codec Pro', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #211F22;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: auto;
+    transition: opacity 0.2s;
+}
+
+.fav-cart-btn:hover {
+    opacity: 0.85;
+}
+
+@media (max-width: 1200px) {
+    .favorites-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+}
+
+@media (max-width: 900px) {
+    .favorites-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .favorites-grid {
+        grid-template-columns: repeat(2, minmax(160px, 200px));
+        gap: 12px;
+    }
+    
+    .fav-product-card {
+        padding: 12px;
+    }
+    
+    .fav-product-title {
+        font-size: 0.9rem;
+    }
+    
+    .fav-product-desc {
+        font-size: 0.7rem;
+        display: none;
+    }
+    
+    .fav-product-image {
+        height: 120px;
+        margin-bottom: 8px;
+    }
+    
+    .fav-cart-btn {
+        height: 36px;
+        font-size: 0.85rem;
+    }
+}
+
+/* ========== МОДАЛЬНЫЕ ОКНА ДЛЯ СТАТУСА ЗАКАЗА ========== */
+.status-modal-container {
+    width: 836px;
+    max-width: 100%;
+    min-height: 100vh;
+    background: white;
+    position: relative;
+    overflow-y: auto;
+    padding: 0 20px;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+}
+
+.modal-overlay.active .status-modal-container {
+    transform: translateX(0);
+}
+
+.status-timeline {
+    margin-top: 120px;
+    margin-left: 115px;
+    margin-right: 115px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.timeline-node {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 0;
+}
+
+.node-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40px;
+}
+
+.node-circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #D9D9D9;
+    border: none;
+}
+
+.node-circle.active {
+    background: #211F22;
+}
+
+.node-line {
+    width: 2px;
+    height: 60px;
+    background: #D9D9D9;
+    margin: 8px 0;
+}
+
+.node-right {
+    flex: 1;
+    padding-bottom: 32px;
+}
+
+.node-title {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #211F22;
+    margin-bottom: 8px;
+}
+
+.node-desc {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #525151;
+}
+
+.delivery-address-block {
+    margin-top: 24px;
+    margin-left: calc(115px + 40px + 24px);
+    margin-right: 115px;
+    margin-bottom: 60px;
+}
+
+.address-title {
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #211F22;
+    margin-bottom: 16px;
+}
+
+.status-modal-title {
+    font-family: 'Codec Pro', sans-serif;
+    font-weight: 400;
+    font-size: 3rem;
+    margin-left: calc(115px + 75px);
+    margin-top: 80px;
+    margin-bottom: 40px;
+    color: #211F22;
+}
+
+/* Мобильная версия модалки статуса */
+@media (max-width: 768px) {
+    .status-modal-container {
+        display: none;
+    }
+    
+    .status-modal-mobile {
+        display: block;
+        width: 100%;
+        max-width: 100vw;
+        background: white;
+        position: relative;
+        overflow-y: auto;
+        border-radius: 24px 24px 0 0;
+        height: auto;
+        max-height: 90vh;
+        transform: translateY(100%);
+        transition: transform 0.3s ease-out;
+        padding: 0 20px;
+    }
+    
+    .modal-overlay.active .status-modal-mobile {
+        transform: translateY(0);
+    }
+    
+    .status-modal-mobile .status-modal-title {
+        font-size: 1.75rem;
+        margin-left: 0;
+        margin-top: 60px;
+        margin-bottom: 24px;
+    }
+    
+    .status-modal-mobile .status-timeline {
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
+    }
+    
+    .status-modal-mobile .delivery-address-block {
+        margin-left: calc(40px + 24px);
+        margin-right: 0;
+    }
+}
+
+@media (min-width: 769px) {
+    .status-modal-mobile {
+        display: none !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .status-timeline { margin-left: 20px; margin-right: 20px; margin-top: 40px; }
+    .delivery-address-block { margin-left: calc(20px + 40px + 24px); margin-right: 20px; }
+    .status-modal-title { margin-left: 20px; font-size: 2rem; margin-top: 60px; }
+}
+
+
+/* Стили для модалок входа/регистрации */
+.login-modal-container {
+    width: 500px;
+    max-width: 90%;
+    background: #002248;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInScale 0.3s ease;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.login-modal-title {
+    font-family: 'Benzin-Medium', 'Codec Pro', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 500;
+    text-align:start;
+    padding: 32px 24px 16px;
+    color: #FFFFFF;
+}
+
+.login-form {
+    padding: 16px 32px 32px;
+}
+
+.login-field {
+    margin-bottom: 16px;
+}
+
+.login-field label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #211F22;
+}
+
+.login-field input {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    background: #F4F4F4;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-family: 'Codec Pro', sans-serif;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.login-field input:focus {
+    outline: none;
+    border-color: #004AAD;
+    background: white;
+}
+
+.login-btn {
+    width: 100%;
+    height: 48px;
+    background: #E9F055;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Codec Pro', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s;
+}
+
+.login-btn:hover {
+    opacity: 0.85;
+    transform: scale(1.02);
+}
+
+.login-links {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+}
+
+.login-links a {
+    color: #F4F4F4;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.login-links a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .login-modal-container {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 24px 24px 0 0;
+        position: fixed;
+        bottom: 0;
+        top: 32px;              /* ← отступ от верхнего края 32px */
+        height: calc(100% - 32px);  /* ← высота от 32px до низа */
+        animation: slideUp 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+    }
+    
+    .login-modal-title {
+        padding: 48px 24px 8px;
+        font-size: 1.5rem;
+
+    }
+    
+    .login-form {
+        padding: 16px 24px 32px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Кнопка входа - прижимаем к низу */
+    .login-btn {
+        margin-top: auto;      /* прижимает к низу */
+        margin-bottom: 32px;   /* отступ от нижнего края 32px */
+        width: 100%;
+    }
+    
+    /* Ссылки идут после кнопки */
+    .login-links {
+        display: flex;
+        flex-direction:row;
+        gap: 8px;
+        margin-bottom: 24px;
+        font-size: 0.8rem;
+    }
+    .login-agreement{
+    color: #8a8a8e;
+    }
+
+    #loginModal .login-agreement a,
+    #registerModal .login-agreement a {
+        color: #2092EA;
+        text-decoration: none;
+    }
+
+    @keyframes slideUp {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+    }
+}
+
+
+/* ========== ДЕСКТОПНАЯ ВЕРСИЯ МОДАЛОК ВХОДА/РЕГИСТРАЦИИ ========== */
+@media (min-width: 769px) {
+    #loginModal.modal-overlay,
+    #registerModal.modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+        display: none;
+        justify-content: flex-end;
+        align-items: stretch;
+    }
+    
+    #loginModal.modal-overlay.active,
+    #registerModal.modal-overlay.active {
+        display: flex;
+    }
+    
+    /* Контейнер модалки - ширина как в окне оплаты */
+    #loginModal .login-modal-container,
+    #registerModal .login-modal-container {
+        width: 836px;
+        max-width: 100%;
+        height: 100vh;
+        background: #002248;
+        position: relative;
+        overflow-y: auto;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-out;
+        border-radius: 0;
+    }
+    
+    #loginModal.modal-overlay.active .login-modal-container,
+    #registerModal.modal-overlay.active .login-modal-container {
+        transform: translateX(0);
+    }
+    
+    /* Крестик - отступ от левого края 115px */
+    #loginModal .modal-close,
+    #registerModal .modal-close {
+        position: absolute;
+        left: 115px;
+        top: 80px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+    }
+    
+    #loginModal .modal-close .material-symbols-outlined,
+    #registerModal .modal-close .material-symbols-outlined {
+        font-size: 2rem;
+        color: #FFFFFF;
+    }
+    
+    #loginModal .modal-close:hover .material-symbols-outlined,
+    #registerModal .modal-close:hover .material-symbols-outlined {
+        color: #F4F4F4;
+    }
+    
+    /* Заголовок - от крестика 75px (115 + 75 = 190px) */
+    #loginModal .login-modal-title,
+    #registerModal .login-modal-title {
+        margin-top: 80px;
+        margin-left: 190px;  /* 115 + 75 = 190px */
+        margin-right: 115px;
+        margin-bottom: 48px;  /* отступ 48px до полей */
+        padding: 0;
+        font-family: 'Benzin-Medium', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 500;
+        text-align: left;
+        color: #FFFFFF;
+    }
+    
+    /* Форма - отступ от левого края 115px */
+    #loginModal .login-form,
+    #registerModal .login-form {
+        margin-left: 115px;
+        margin-right: 115px;
+        padding: 0;
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 200px);  /* ← высота минус заголовок */
+    }
+    
+    /* Поля ввода - ширина 440px 
+    #loginModal .login-field,
+    #registerModal .login-field {
+        
+    }*/
+    
+    #loginModal .login-field label,
+    #registerModal .login-field label {
+        display: block;
+        font-size: 1rem;
+        font-weight: 400;
+        margin-bottom: 8px;
+        color: #FFFFFF;
+    }
+    
+    #loginModal .login-field input,
+    #registerModal .login-field input {
+        width: 440px;  /* фиксированная ширина */
+        height: 56px;
+        padding: 0 16px;
+        background: #F4F4F4;
+        border: 1px solid transparent;
+        border-radius: 16px;
+        font-family: 'Codec Pro', sans-serif;
+        font-size: 1rem;
+        transition: all 0.2s;
+    }
+    
+    #loginModal .login-field input:focus,
+    #registerModal .login-field input:focus {
+        outline: none;
+        border-color: #004AAD;
+        background: white;
+    }
+    
+    /* Кнопка входа - ширина 440px, высота 56px */
+    #loginModal .login-btn,
+    #registerModal .login-btn {
+        width: 440px;
+        height: 56px;
+        background: #E9F056;
+        border: none;
+        border-radius: 8px;
+        font-family: 'Codec Pro', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 400;
+        cursor: pointer;
+        margin-top: 16px;
+        margin-bottom: 32px;  /* отступ до ссылок 32px */
+        transition: opacity 0.2s;
+        display: block;
+    }
+    
+    #loginModal .login-btn:hover,
+    #registerModal .login-btn:hover {
+        opacity: 0.85;
+    }
+    
+    /* Ссылки под кнопкой */
+    #loginModal .login-links,
+    #registerModal .login-links {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 24px;
+        font-size: 0.9rem;
+        flex-wrap: wrap;
+        width: 440px;  /* ← добавить фиксированную ширину */
+    }
+    
+    #loginModal .login-links a,
+    #registerModal .login-links a {
+        color: #F4F4F4;
+        text-decoration: none;
+        cursor: pointer;
+        white-space: nowrap; 
+    }
+    
+    #loginModal .login-links a:hover,
+    #registerModal .login-links a:hover {
+        text-decoration: underline;
+    }
+    
+    /* Нижний текст - отступ снизу 32px */
+    #loginModal .login-agreement,
+    #registerModal .login-agreement {
+        margin-top: auto;  /* ← прижимает к низу */
+        margin-bottom: 32px;
+        font-size: 14px;
+        color: #8a8a8e;
+        line-height: 1.4;
+        width: 432px;
+    }
+    
+    #loginModal .login-agreement a,
+    #registerModal .login-agreement a {
+        color: #2092EA;
+        text-decoration: none;
+    }
+    
+    #loginModal .login-agreement a:hover,
+    #registerModal .login-agreement a:hover {
+        text-decoration: underline;
+    }
+    
+    /* Ошибка */
+    #loginModal .login-error,
+    #registerModal .login-error {
+        margin-bottom: 16px;
+        padding: 0;
+        width: 440px;
+    }
+    
+    /* Скрываем drag handle на десктопе */
+    #loginModal .modal-drag-handle,
+    #registerModal .modal-drag-handle {
+        display: none;
+    }
+}
+
+@media (max-width: 1024px) {
+    .modal-close,
+    .modal-close.desktop-only {
+        display: none !important;
+    }
+}

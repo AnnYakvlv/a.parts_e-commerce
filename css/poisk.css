@@ -1,0 +1,121 @@
+/* ========== ПОИСК В НАВБАРЕ ========== */
+.navbar-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.search-wrapper {
+    flex-shrink: 0;
+}
+
+.search-container {
+    position: relative;
+    width: 480px;
+}
+
+.search-container input {
+    width: 100%;
+    height: 40px;
+    padding: 0 48px 0 16px;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 8px;
+    font-family: 'Codec Pro', sans-serif;
+    font-size: 16px;
+    color: #211F22;
+    outline: none;
+}
+
+.search-container input::placeholder {
+    color: #525151;
+    font-size: 16px;
+}
+
+.search-container input:focus {
+    border-color: #004AAD;
+}
+
+.search-container .search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.search-container .search-icon .material-symbols-outlined {
+    font-size: 24px;
+    color: #211F22;
+}
+
+/* Скрываем поиск на главной странице */
+body.home-page .navbar-search .search-wrapper {
+    display: none;
+}
+
+/* Адаптив как у аккордеона */
+@media (max-width: 1400px) {
+    .search-container {
+        width: 400px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .search-container {
+        width: 350px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .search-container {
+        width: 300px;
+    }
+}
+
+@media (max-width: 900px) {
+    .search-container {
+        width: 280px;
+    }
+}
+
+@media (max-width: 800px) {
+    .search-container {
+        width: 260px;
+    }
+}
+
+/* Мобильная версия — поиск под логотипом на всю ширину */
+@media (max-width: 768px) {
+    .navbar-search {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .search-wrapper {
+        width: 100%;
+    }
+    
+    .search-container {
+        width: 100%;
+    }
+    
+    .search-container input {
+        height: 40px;
+        font-size: 14px;
+        padding: 0 44px 0 14px;
+    }
+    
+    .search-container input::placeholder {
+        font-size: 14px;
+    }
+    
+    .search-container .search-icon .material-symbols-outlined {
+        font-size: 22px;
+    }
+}

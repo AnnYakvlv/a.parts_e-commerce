@@ -1,0 +1,120 @@
+/* ========== СТИЛИ ДЛЯ СТРАНИЦЫ КАТАЛОГА (АККОРДЕОН) ========== */
+.catalog-page {
+    margin-top: 80px;
+}
+
+.accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 64px;
+}
+
+.accordion-item {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: white;
+    border: none;
+    padding: 24px;
+    cursor: pointer;
+    font-size: 1.35rem;
+    font-weight: 400;
+    font-family: 'Codec Pro', sans-serif;
+    color: #211F22;
+    text-align: left;
+    transition: font-weight 0.2s ease;
+}
+
+.accordion-item.open .accordion-header {
+    font-weight: 700;
+}
+
+.accordion-header:hover {
+    background-color: transparent;
+}
+
+.header-text {
+    flex: 1;
+}
+
+.accordion-header .material-symbols-outlined {
+    font-size: 28px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #5a6874;
+}
+
+.accordion-item.open .accordion-header .material-symbols-outlined {
+    transform: rotate(90deg);
+}
+
+.accordion-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: #ffffff;
+}
+
+.accordion-item.open .accordion-content {
+    grid-template-rows: 1fr;
+}
+
+.accordion-inner {
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.3s ease 0.05s, transform 0.3s ease 0.05s;
+}
+
+.accordion-item.open .accordion-inner {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.subcategories {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 8px 24px 24px 24px;
+    list-style: none;
+}
+
+.subcategories li {
+    font-size: 1.05rem;
+    font-weight: 400;
+}
+
+.subcategories a {
+    text-decoration: none;
+    color: #211F22;
+    font-family: 'Codec Pro', sans-serif;
+    font-weight: 400;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+    padding: 4px 0;
+}
+
+.subcategories a:hover {
+    color: #004AAD;
+    transform: translateX(4px);
+}
+
+@media (max-width: 700px) {
+    .accordion-header {
+        padding: 18px;
+        font-size: 1.2rem;
+    }
+    .subcategories {
+        padding: 8px 18px 18px 18px;
+    }
+}
