@@ -581,12 +581,15 @@ function showNotification(message, type = 'info') {
         position: fixed;
         bottom: 100px;
         right: 20px;
-        background: ${type === 'success' ? '#38AD02' : '#004AAD'};
-        color: white;
+        background: white;
+        color: #38AD02;
         padding: 12px 24px;
         border-radius: 8px;
+        border: 2px solid #38AD02;
         z-index: 2000;
         animation: slideIn 0.3s ease;
+        font-family: 'Codec Pro', sans-serif;
+        font-weight: 600;
     `
     document.body.appendChild(notification)
     setTimeout(() => notification.remove(), 3000)
